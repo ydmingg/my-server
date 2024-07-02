@@ -9,24 +9,41 @@ const STU_ARR = [
 
 ]
 
-
-// 定义学生信息的路由
-app.get('/students', (req, res) => {
-    console.log("asdfasdfasdf");
-    // 返回学生信息
-    res.send({
-        status: "ok",
-        data: STU_ARR
-    })
-
-})
-
 // 引入中间件
 app.use(express.urlencoded({ extended: true }));
 
 // 引入中间件
 app.use(express.json({ extended: true }));
 
+// 解决跨域，增加请求头(允许所有网站)
+app.use((req,res) => { 
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+})
+
+// 定义学生信息的路由
+app.get('/students', (req, res) => {
+    console.log("asdfasdfasdf");
+    // 返回学生信息
+    res.send({
+        status: "ok",  
+        data: STU_ARR
+    })
+
+})
+
+// 查询某个学生的路由
+app.get('/students/:id', (req, res) => {
+    // 获取学生信息
+    const id = req.params.id
+    const stu = STU_ARR.find(item => item.id === id)
+
+    res.send({
+        status: "ok",
+        data: stu
+    })
+
+})
 
 // 定义添加学生信息的路由
 app.post("/students", (req, res) => { 
@@ -52,19 +69,6 @@ app.post("/students", (req, res) => {
         data: stu
     })
     
-})
-
-// 查询某个学生的路由
-app.get('/students/:id', (req, res) => {
-    // 获取学生信息
-    const id = req.params.id
-    const stu = STU_ARR.find(item => item.id === id)
-
-    res.send({
-        status: "ok",
-        data: stu
-    })
-
 })
 
 // 定义删除学生的路由
@@ -127,6 +131,6 @@ app.put("/students", (req, res) => {
 
 
 
-app.listen(4000,()=>{
+app.listen(3000,()=>{
     console.log("服务器已经启动");
 })
