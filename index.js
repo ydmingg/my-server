@@ -126,11 +126,6 @@ app.put("/students", (req, res) => {
 
 
 
-// 定义一个修改学生的路由
-// app.put()
-
-
-
 
 app.listen(4000,()=>{
     console.log("服务器已经启动");
