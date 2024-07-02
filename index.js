@@ -16,9 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
 
 // 解决跨域，增加请求头(允许所有网站)
-app.use((req,res) => { 
+app.use((req,res,next) => { 
     // res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+    res.setHeader("Access-Control-Allow-Methods", "GIT,POST");
+    res.setHeader("Access-Control-Allow-Headers", "Content-type");
+
+    next(); // 一定不要王记这个
 })
 
 // 定义学生信息的路由
